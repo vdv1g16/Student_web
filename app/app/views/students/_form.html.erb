@@ -1,25 +1,57 @@
-<%= form_for(@student) do |f| %>
-  <% if @student.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved:</h2>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for @student, html: {multipart: true} do |f| %>
+      
+      <% if @student.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved:</h2>
 
-      <ul>
-      <% @student.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+          <% @student.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+      <div class="field">
+        <%= f.label :name %><br>
+        <%= f.text_field :name %>
+      </div>
+
+      <div class="field">
+        <%= f.label :course, "Course"  %><br>
+        <%= f.text_field :course %>
+      </div>
+
+      <div class="field">
+        <%= f.label :school, "School"  %><br>
+        <%= f.text_field :school %>
+      </div>
+
+      <div class="field">
+        <%= f.label :email %><br>
+        <%= f.email_field :email %>
+      </div>
+
+      <div class="field">
+        <%= f.label :avatar %><br>
+        <%= f.file_field :avatar %>
+
+      <p>
+        <label>
+          <%= f.check_box :remove_avatar %>
+          Remove file
+        </label>
+      </p>
+
+      </div>
+
+      <%= f.hidden_field :password %>
+      <%= f.hidden_field :password_confirmation %>
+      <div class="actions">
+        <%= f.submit "Update my account", class: "btn btn-primary"%>
+      </div>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

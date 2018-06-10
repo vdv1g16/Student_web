@@ -6,6 +6,7 @@ class StudentsController < ApplicationController
   end
 
   def show
+    @student = Student.find(params[:id])
   end
 
   def new
@@ -13,19 +14,22 @@ class StudentsController < ApplicationController
   end
 
   def edit
+    @student = Student.find(params[:id])
   end
 
   def create
     @student = Student.new(student_params)
     if @student.save
-      redirect_to @student
+      log_in @student
       flash[:notice] = "New student is successfully created!"
+      redirect_to @student
     else
       render 'new'
     end    
   end
 
   def update
+    @student = Student.find(params[:id])
     if @student.update(student_params)
       redirect_to @student
       flash[:notice] = "Student was successfully updated."
@@ -46,6 +50,8 @@ class StudentsController < ApplicationController
     end
 
     def student_params
-      params.require(:student).permit(:name, :email)
+      params.require(:student).permit(:name, :email, :school, :course, :password, :password_confirmation, :avatar)
     end
+
 end
+
